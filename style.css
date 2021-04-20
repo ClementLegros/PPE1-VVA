@@ -1,0 +1,4 @@
+/* Permet de séparer les cards entre elle */
+.card-container{
+    padding-left: 3rem;
+}
