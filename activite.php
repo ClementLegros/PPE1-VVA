@@ -14,6 +14,7 @@ $user = $_SESSION['User'];
             <th scope='col'>Heure Fin Act</th>
             <th scope='col'>Date Anul Act</th>
             <th scope='col'>Responsable</th>
+            <th scope='col'>Place libre</th>
             <th scope='col'>Inscription</th>
             <?php
             if ($_SESSION['TypeUser'] == "AD") { ?>
@@ -28,24 +29,24 @@ $user = $_SESSION['User'];
 
     <?php
     $cdAnim = $_GET['cdAnim'];
-    try {
-        $bdd = new PDO('mysql:host=localhost;dbname=GACTI;charset=utf8', 'root', 'root');
-        $reponse = $bdd->query("SELECT * FROM ACTIVITE WHERE CODEANIM = $cdAnim ");
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
-    while ($ligne = $reponse->fetch()) {
-        $noAct = $ligne['NOACT'];
-        $codeAnim = $ligne['CODEANIM'];
-        $codeEtatAct = $ligne['CODEETATACT'];
-        $dateAct = $ligne['DATEACT'];
-        $hrRdvAct = $ligne['HRRDVACT'];
-        $hrDebutAct = $ligne['HRDEBUTACT'];
-        $hrFinAct = $ligne['HRFINACT'];
-        $dateAnulAct = $ligne['DATEANNULEACT'];
-        $prenomResp = $ligne['PRENOMRESP'];
-        $nomResp = $ligne['NOMRESP'];
-        $tarifAct = $ligne['PRIXACT'];
+    ini_set('display_errors', 'on');
+
+    $bdd = bddConnect();
+    mysqli_set_charset($bdd, "utf8");
+    $req = "SELECT *  FROM ACTIVITE ACT, ETAT_ACT ETACT WHERE ACT.CODEETATACT= ETACT.CODEETATACT AND ACT.CODEANIM='$cdAnim' AND ETACT.NOMETATACT = 'Disponible'";
+    $res = mysqli_query($bdd, $req);
+    while ($donnees = mysqli_fetch_assoc($res)) {
+        $noAct = $donnees['NOACT'];
+        $codeAnim = $donnees['CODEANIM'];
+        $codeEtatAct = $donnees['CODEETATACT'];
+        $dateAct = $donnees['DATEACT'];
+        $hrRdvAct = $donnees['HRRDVACT'];
+        $hrDebutAct = $donnees['HRDEBUTACT'];
+        $hrFinAct = $donnees['HRFINACT'];
+        $dateAnulAct = $donnees['DATEANNULEACT'];
+        $prenomResp = $donnees['PRENOMRESP'];
+        $nomResp = $donnees['NOMRESP'];
+        $tarifAct = $donnees['PRIXACT'];
     ?>
         <tbody>
             <tr>
@@ -60,23 +61,33 @@ $user = $_SESSION['User'];
                 <td><?php echo $dateAnulAct ?></td>
                 <td><?php echo $prenomResp, " ", $nomResp ?></td>
                 <?php
-                try {
-                    $bdd = new PDO('mysql:host=localhost;dbname=GACTI;charset=utf8', 'root', 'root');
-                    $reponse = $bdd->query("SELECT count(*) AS dejaInscrit FROM INSCRIPTION WHERE USER='$user' AND NOACT='$noAct'");
-                    $donnees = $reponse->fetch();
-                } catch (Exception $e) {
-                    die('Erreur : ' . $e->getMessage());
+                $nbrePlace = $_GET['nbrePlace'];
+                $req = "SELECT count(*) AS nbInscrit FROM INSCRIPTION WHERE NOACT='$noAct'";
+                $res = mysqli_query($bdd, $req);
+                $donnees = mysqli_fetch_assoc($res);
+                if ($donnees['nbInscrit'] == $nbrePlace) {
+                    $nbrePlace = "Complet";
+                } else {
+                    $nbrePlace = $nbrePlace - $donnees['nbInscrit'];
                 }
-                if ($donnees['dejaInscrit'] == 1) {?>
+
+                ?>
+                <td><?php echo $nbrePlace ?></td>
+                <?php
+
+                $req = "SELECT count(*) AS dejaInscrit FROM INSCRIPTION WHERE USER='$user' AND NOACT='$noAct'";
+                $res = mysqli_query($bdd, $req);
+                $donnees = mysqli_fetch_assoc($res);
+
+                if ($donnees['dejaInscrit'] == 1) { ?>
                     <td><a href="index.php?page=desinscription&noAct=<?php echo $noAct ?>" class="btn btn-info">se désinscrire</a></td>
-                    <?php
-                }
-                else{
-                    ?>
+                <?php
+                } else {
+                ?>
                     <td><a href="index.php?page=inscription&noAct=<?php echo $noAct ?>" class="btn btn-info">Inscription</a></td>
-                    <?php
+                <?php
                 }
-                $reponse->closeCursor();
+
                 if ($_SESSION['TypeUser'] == "AD") { ?>
                     <td><a href="index.php?page=modifierActivite&noAct=<?php echo $noAct ?>" class="btn btn-info">Modifier activité</a></td>
                     <td><a href="index.php?page=supprimerActivite&noAct=<?php echo $noAct ?>" class="btn btn-info">Suprimmer activité</a></td>
@@ -88,5 +99,5 @@ $user = $_SESSION['User'];
         </tbody>
     <?php
     }
-    $reponse->closeCursor();
+    mysqli_close($bdd);
     ?>

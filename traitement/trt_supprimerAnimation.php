@@ -1,4 +1,7 @@
 <?php
+
+include '../fonction.php';
+
     $cdAnim = $_GET['cdAnim'];
     try {
         $bdd = new PDO('mysql:host=localhost;dbname=GACTI;charset=utf8', 'root', 'root');

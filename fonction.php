@@ -1,4 +1,9 @@
 <?php
+function bddConnect()
+{
+    $con = mysqli_connect("localhost", "root", "root", "gacti");
+    return $con;
+}
 //Les fonctions suivantes concernes les navbars en fonction du type d'utilisateur
 function indexWithoutAnyLogin()
 {
@@ -74,6 +79,9 @@ function indexWithAdminLogin()
             case 'listerInscrit':
                 include 'listerInscrit.php';
                 break;
+            case 'inscription':
+                include 'traitement/trt_inscription.php';
+                break;
         }
     }
 }
@@ -122,6 +130,7 @@ function indexWithVacancierLogin()
                 break;
             case "desinscription":
                 include 'traitement/trt_desinscription.php';
+                break;
         }
     }
 }

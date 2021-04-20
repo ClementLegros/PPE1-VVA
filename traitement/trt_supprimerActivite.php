@@ -1,4 +1,7 @@
 <?php
+
+include '../fonction.php';
+
 /* L'encadrant vérifie toutes les données de l'activité et vérifie que l'activité peut être annulé */
 $noAct = $_GET['noAct'];
 try {

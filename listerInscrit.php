@@ -14,14 +14,14 @@
 
     <tbody>
         <?php
-        try {
-            $bdd = new PDO('mysql:host=localhost;dbname=GACTI;charset=utf8', 'root', 'root');
-        } catch (Exception $e) {
-            die('Erreur : ' . $e->getMessage());
-        }
+        
         $noAct = $_GET['noAct'];
-        $reponse = $bdd->query("SELECT * FROM INSCRIPTION I, COMPTE C WHERE I.USER = C.USER AND NOACT = '$noAct' ");
-        while ($donnees = $reponse->fetch()) {
+        $bdd = bddConnect();
+        mysqli_set_charset($bdd, "utf8");
+        $req = "SELECT * FROM INSCRIPTION I, COMPTE C WHERE I.USER = C.USER AND NOACT = '$noAct'";
+        $res = mysqli_query($bdd, $req);
+
+        while ($donnees = mysqli_fetch_assoc($res)) {
             $user = $donnees['USER'];
             $nomCompte = $donnees['NOMCOMPTE'];
             $prenomCompte = $donnees['PRENOMCOMPTE'];
@@ -32,7 +32,7 @@
             <td>$prenomCompte</td>
         </tr>";
         }
-        $reponse->closeCursor();
+        mysqli_close($bdd);
         ?>
     </tbody>
 </table>

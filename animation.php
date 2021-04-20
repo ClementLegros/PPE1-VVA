@@ -14,14 +14,14 @@ if (isset($_GET['reussite'])) {
     }
 }
 //Connexion à la base de donnée
-try {
-    $bdd = new PDO('mysql:host=localhost;dbname=GACTI;charset=utf8', 'root', 'root');
-    $reponse = $bdd->query("SELECT * FROM ANIMATION");
-} catch (Exception $e) {
-    die('Erreur : ' . $e->getMessage());
-}
+
+$bdd = bddConnect();
+mysqli_set_charset($bdd, "utf8");
+$req = "SELECT * FROM ANIMATION";
+$res = mysqli_query($bdd, $req);
+
 ?> <div class="card-group"><?php
-                            while ($donnees = $reponse->fetch()) {
+                            while ($donnees = mysqli_fetch_assoc($res)) {
 
                                 //Asignation des variables
                                 $codeAnimation = $donnees['CODEANIM'];
@@ -47,7 +47,7 @@ try {
                     <p>Nombre de place: <?php echo $nbrPlaceAnim ?> places</p>
                     <p>Difficulté: <?php echo $difficulteAnimation ?></p>
                     <p>Commentaire: <?php echo $commentAnimation ?></p>
-                    <a href="index.php?page=activite&cdAnim=<?php echo $codeAnimation ?>" class="btn btn-primary">Voir les activités</a>
+                    <a href="index.php?page=activite&cdAnim=<?php echo $codeAnimation ?>&nbrePlace=<?php echo $nbrPlaceAnim ?>" class="btn btn-primary">Voir les activités</a>
 
                     <?php
                                 if ($_SESSION['TypeUser'] == "AD") { ?>
@@ -62,5 +62,5 @@ try {
                             }
     ?>
 </div><?php
-        $reponse->closeCursor();
+        mysqli_close($bdd);
         ?>
