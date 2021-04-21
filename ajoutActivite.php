@@ -84,7 +84,7 @@ if (isset($_GET['reussite'])) {
 
     <div class="form-group">
         <label for="exampleFormControlInput1">Nom du résponsable</label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le nom du responsable" name="nomResp">
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Entrez le nom du responsable" name="nomResponsable">
     </div>
 
     <div class="form-group">
