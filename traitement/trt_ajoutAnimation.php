@@ -21,12 +21,9 @@ $difficulteAnimation = htmlspecialchars($_POST['difficulteAnimation'], ENT_QUOTE
 //Faire la vérification pour la clé primaire
 $bdd = bddConnect();
 mysqli_set_charset($bdd, "utf8");
-$req = "UPDATE ANIMATION SET CODEANIM= '$cdAnim', CODETYPEANIM='$cdTypeAnim', NOMANIM='$nomAnimation', DATECREATIONANIM='$dateCreationAnimation', DATEVALIDITEANIM='$dateValiditeAnimation', DUREEANIM='$dureeAnimation',LIMITEAGE='$limiteAge',TARIFANIM='$tarifAnimation',NBREPLACEANIM='$nbrPlaceAnimation',DESCRIPTANIM='$descriptionAnimation',COMMENTANIM='$commentaireAnimation', DIFFICULTEANIM='$difficulteAnimation' WHERE CODEANIM='$cdAnim' ";
-if($res = mysqli_query($bdd, $req))
-{
-    header('location:../index.php?page=modifierAnimation&reussite=True');
-}
-else
-{
-    header('location:../index.php?page=modifierAnimation&reussite=False');
+$req = "INSERT INTO ANIMATION VALUES('$cdAnim','$cdTypeAnim','$nomAnimation','$dateCreationAnimation','$dateValiditeAnimation', '$dureeAnimation','$limiteAge','$tarifAnimation','$nbrPlaceAnimation','$descriptionAnimation','$commentaireAnimation','$difficulteAnimation') ";
+if ($res = mysqli_query($bdd, $req)) {
+    header('location:../index.php?page=ajoutAnimation&reussite=True');
+} else {
+    header('location:../index.php?page=ajoutAnimation&reussite=False');
 }

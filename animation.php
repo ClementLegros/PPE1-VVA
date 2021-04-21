@@ -8,8 +8,9 @@ if (isset($_GET['reussite'])) {
         echo ' alert("Réussite")';
         echo '</script>';
     } else {
+        $messageErreur = $_SESSION['erreur'];
         echo '<script type="text/javascript">';
-        echo ' alert("La supression a échoué")';
+        echo ' alert("Echec")';
         echo '</script>';
     }
 }

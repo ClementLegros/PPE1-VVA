@@ -45,6 +45,11 @@ function indexWithAdminLogin()
                     <a class='nav-link' href='index.php?page=animation'>Animation<span class='sr-only'>(current)</span></a>
                 </li>
             </ul>
+            <ul class='navbar-nav'>
+                <li class='nav-item active'>
+                    <a class='nav-link' href='index.php?page=indexAjout'>Ajouter<span class='sr-only'>(current)</span></a>
+                </li>
+            </ul>
             
             <ul class='navbar-nav'>
                 <li class='nav-item active'>
@@ -81,6 +86,15 @@ function indexWithAdminLogin()
                 break;
             case 'inscription':
                 include 'traitement/trt_inscription.php';
+                break;
+            case 'indexAjout':
+                include 'indexAjout.htm';
+                break;
+            case 'ajoutAnimation':
+                include 'ajoutAnimation.php';
+                break;
+            case 'ajoutActivite':
+                include 'ajoutActivite.php';
                 break;
         }
     }
