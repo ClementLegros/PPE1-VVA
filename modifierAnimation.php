@@ -8,7 +8,7 @@ if (isset($_GET['reussite'])) {
         echo '</script>';
     } else {
         echo '<script type="text/javascript">';
-        echo ' alert("Echec : la clé primaire est peut être existante ou un champs à mal été rempli !")';
+        echo ' alert("Echec : Un champs à du mal être saisis !")';
         echo '</script>';
     
     }
