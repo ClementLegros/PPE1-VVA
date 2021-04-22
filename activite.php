@@ -1,5 +1,5 @@
 <?php
-$user = $_SESSION['User'];
+$user = $_SESSION['User']; // On récupère l'utilisateur
 ?>
 <table class='table'>
     <thead class='thead-dark'>
@@ -33,7 +33,7 @@ $user = $_SESSION['User'];
 
     $bdd = bddConnect();
     mysqli_set_charset($bdd, "utf8");
-    $req = "SELECT *  FROM ACTIVITE ACT, ETAT_ACT ETACT WHERE ACT.CODEETATACT= ETACT.CODEETATACT AND ACT.CODEANIM='$cdAnim' AND ETACT.NOMETATACT = 'Disponible'";
+    $req = "SELECT *  FROM ACTIVITE ACT, ETAT_ACT ETACT WHERE ACT.CODEETATACT= ETACT.CODEETATACT AND ACT.CODEANIM='$cdAnim' AND ETACT.NOMETATACT = 'Disponible'"; //On recupère les animations
     $res = mysqli_query($bdd, $req);
     while ($donnees = mysqli_fetch_assoc($res)) {
         $noAct = $donnees['NOACT'];
@@ -62,7 +62,7 @@ $user = $_SESSION['User'];
                 <td><?php echo $prenomResp, " ", $nomResp ?></td>
                 <?php
                 $nbrePlace = $_GET['nbrePlace'];
-                $req = "SELECT count(*) AS nbInscrit FROM INSCRIPTION WHERE NOACT='$noAct'";
+                $req = "SELECT count(*) AS nbInscrit FROM INSCRIPTION WHERE NOACT='$noAct'"; // On récupère les nombres d'inscrit à l'activité
                 $res = mysqli_query($bdd, $req);
                 $donnees = mysqli_fetch_assoc($res);
                 if ($donnees['nbInscrit'] == $nbrePlace) {
@@ -75,7 +75,7 @@ $user = $_SESSION['User'];
                 <td><?php echo $nbrePlace ?></td>
                 <?php
 
-                $req = "SELECT count(*) AS dejaInscrit FROM INSCRIPTION WHERE USER='$user' AND NOACT='$noAct'";
+                $req = "SELECT count(*) AS dejaInscrit FROM INSCRIPTION WHERE USER='$user' AND NOACT='$noAct'"; // On regarde si l'utilisateur est déjà inscrit
                 $res = mysqli_query($bdd, $req);
                 $donnees = mysqli_fetch_assoc($res);
 

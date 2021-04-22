@@ -18,7 +18,7 @@ if (isset($_GET['reussite'])) {
 
 $bdd = bddConnect();
 mysqli_set_charset($bdd, "utf8");
-$req = "SELECT * FROM ANIMATION";
+$req = "SELECT * FROM ANIMATION"; //On récupère toute les animations
 $res = mysqli_query($bdd, $req);
 
 ?> <div class="card-group"><?php
@@ -51,7 +51,8 @@ $res = mysqli_query($bdd, $req);
                     <a href="index.php?page=activite&cdAnim=<?php echo $codeAnimation ?>&nbrePlace=<?php echo $nbrPlaceAnim ?>" class="btn btn-primary">Voir les activités</a>
 
                     <?php
-                                if ($_SESSION['TypeUser'] == "AD") { ?>
+                                //Si l'utilisateur est AD on affiche des buttons supplémentaires
+                                if ($_SESSION['TypeUser'] == "AD") { ?> 
                         <a href="index.php?page=modifierAnimation&cdAnim=<?php echo $codeAnimation ?>" class="btn btn-info">Modifier animation</a>
                         <a href="index.php?page=supprimerAnimation&cdAnim=<?php echo $codeAnimation ?>" class="btn btn-info">Supprimer animation</a>
                     <?php
