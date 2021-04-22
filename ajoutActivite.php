@@ -10,7 +10,7 @@ if (isset($_GET['reussite'])) {
     } else {
         $messageErreur = $_SESSION['erreur'];
         echo '<script type="text/javascript">';
-        echo ' alert("Echec : la clé primaire est peut être existante ou un champs à mal été rempli !")';
+        echo ' alert("Echec : Une activité est peut être déjà existante sur cette journée, ou un champs à mal été remplis, ou une activité à déjà la même clé primaire !")';
         echo '</script>';
     }
 }
@@ -41,11 +41,11 @@ if (isset($_GET['reussite'])) {
         <label for="exampleFormControlSelect1">Code état activité</label>
         <select class='form-control' id='exampleFormControlSelect1' name='cdEtatAct'>
             <?php
-            $req = "SELECT * FROM CODEETATACT";
+            $req = "SELECT * FROM ETAT_ACT";
             $res = mysqli_query($bdd, $req);
             while ($donnees = mysqli_fetch_assoc($res)) {
             ?>
-                <option> <?php echo $donnees['CODEETATAC'] ?> </option>
+                <option> <?php echo $donnees['CODEETATACT'] ?> </option>
             <?php
             }
             ?>
@@ -59,7 +59,7 @@ if (isset($_GET['reussite'])) {
 
     <div class="form-group">
         <label for="exampleFormControlInput1">Heure RDV activité</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de RDV de l'activité" name="heureRDV">
+        <input type="time" step="1" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de RDV de l'activité" name="heureRDV">
     </div>
 
     <div class="form-group">
@@ -69,12 +69,12 @@ if (isset($_GET['reussite'])) {
 
     <div class="form-group">
         <label for="exampleFormControlInput1">Heure début de l'activité</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de début de l'activité" name="heureDBT">
+        <input type="time" step="1" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de début de l'activité" name="heureDBT">
     </div>
 
     <div class="form-group">
         <label for="exampleFormControlInput1">Heure fin de l'activité</label>
-        <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de fin de l'activité" name="heureFIN">
+        <input type="time" step="1" class="form-control" id="exampleFormControlInput1" placeholder="Entrez l'heure de fin de l'activité" name="heureFIN">
     </div>
 
     <div class="form-group">

@@ -18,7 +18,6 @@ $difficulteAnimation = htmlspecialchars($_POST['difficulteAnimation'], ENT_QUOTE
 
 
 
-//Faire la vérification pour la clé primaire
 $bdd = bddConnect();
 mysqli_set_charset($bdd, "utf8");
 $req = "INSERT INTO ANIMATION VALUES('$cdAnim','$cdTypeAnim','$nomAnimation','$dateCreationAnimation','$dateValiditeAnimation', '$dureeAnimation','$limiteAge','$tarifAnimation','$nbrPlaceAnimation','$descriptionAnimation','$commentaireAnimation','$difficulteAnimation') ";
