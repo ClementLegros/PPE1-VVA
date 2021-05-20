@@ -66,8 +66,7 @@ if ($donnees['dejaInscrit'] == 1) {
         } else {
             $req = "INSERT INTO INSCRIPTION VALUES(NULL,'$user','$noAct','$dateActuel','$dateAnnulAct') ";
             $res = mysqli_query($bdd, $req);
-            $donnees = mysqli_fetch_assoc($res);
-            header('location:../index.php?page=animation&reussite=True');
+            header('location:index.php?page=animation&reussite=True');
         }
     }
 }

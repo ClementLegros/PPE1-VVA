@@ -22,11 +22,8 @@ $difficulteAnimation = htmlspecialchars($_POST['difficulteAnimation'], ENT_QUOTE
 $bdd = bddConnect();
 mysqli_set_charset($bdd, "utf8");
 $req = "UPDATE ANIMATION SET CODEANIM= '$cdAnim', CODETYPEANIM='$cdTypeAnim', NOMANIM='$nomAnimation', DATECREATIONANIM='$dateCreationAnimation', DATEVALIDITEANIM='$dateValiditeAnimation', DUREEANIM='$dureeAnimation',LIMITEAGE='$limiteAge',TARIFANIM='$tarifAnimation',NBREPLACEANIM='$nbrPlaceAnimation',DESCRIPTANIM='$descriptionAnimation',COMMENTANIM='$commentaireAnimation', DIFFICULTEANIM='$difficulteAnimation' WHERE CODEANIM='$cdAnim' ";
-if($res = mysqli_query($bdd, $req))
-{
+if ($res = mysqli_query($bdd, $req)) {
     header('location:../index.php?page=modifierAnimation&reussite=True');
-}
-else
-{
+} else {
     header('location:../index.php?page=modifierAnimation&reussite=False');
 }

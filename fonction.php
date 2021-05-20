@@ -62,7 +62,7 @@ function indexWithAdminLogin()
     if (isset($_GET['page'])) {
         switch ($_GET['page']) {
             case 'modifierActivite':
-                include 'modifierActivite';
+                include 'modifierActivite.php';
                 break;
             case 'modifierAnimation':
                 include 'modifierAnimation.php';
