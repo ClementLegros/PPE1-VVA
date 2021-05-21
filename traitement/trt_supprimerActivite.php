@@ -27,8 +27,8 @@ if ($peutEtreSupr) {
     $reponse = $bdd->query("DELETE FROM ACTIVITE WHERE NOACT = '$noAct'");
     $donnees = $reponse->fetch();
     $reponse->closeCursor();
-    header('location:index.php?page=consulterAnim&reussite=True');
+    header('location:index.php?page=animation&reussite=True');
 } else {
-    header('location:index.php?page=consulterAnim&reussite=False');
+    header('location:index.php?page=animation&reussite=False');
 }
 ?>

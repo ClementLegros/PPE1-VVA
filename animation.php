@@ -3,12 +3,18 @@
 //Ce code se déclanche après la supression d'une activité/animation pour voir si cela à fonctionner ou non
 if (isset($_GET['reussite'])) {
     $rps = $_GET['reussite'];
-    if ($rps == "True") {
+    session_start();
+    $idInscription = $_SESSION['noInscrit'];
+    $_SESSION['noInscrit'] = "";
+    if ($idInscription != "") {
+        echo '<script type="text/javascript">';
+        echo ' alert("Réussite, votre code est : ' . $idInscription . ' et noter le bien il vous sera utile pour annuler votre inscription")';
+        echo '</script>';
+    } elseif ($rps == "True") {
         echo '<script type="text/javascript">';
         echo ' alert("Réussite")';
         echo '</script>';
     } else {
-        $messageErreur = $_SESSION['erreur'];
         echo '<script type="text/javascript">';
         echo ' alert("Echec")';
         echo '</script>';
@@ -52,9 +58,20 @@ $res = mysqli_query($bdd, $req);
 
                     <?php
                                 //Si l'utilisateur est AD on affiche des buttons supplémentaires
-                                if ($_SESSION['TypeUser'] == "AD") { ?> 
+                                if ($_SESSION['TypeUser'] == "AD") { ?>
                         <a href="index.php?page=modifierAnimation&cdAnim=<?php echo $codeAnimation ?>" class="btn btn-info">Modifier animation</a>
                         <a href="index.php?page=supprimerAnimation&cdAnim=<?php echo $codeAnimation ?>" class="btn btn-info">Supprimer animation</a>
+                    <?php
+                                } else {
+                    ?>
+                        <form action="index.php?page=actParMois&cdAnim=<?php echo $codeAnimation ?>&nbrePlace=<?php echo $nbrPlaceAnim ?>" method="POST">
+                            <div class="form-group">
+                                <label for="entrerNoInscription">Chercher les activités en fonction du mois</label>
+                                <input type="text" class="form-control" id="mois" placeholder="Enter mois" name="moisEntrer">
+                                <button type="submit" class="btn btn-outline-info">Valider</button>
+                            </div>
+                        </form>
+
                     <?php
                                 } ?>
                 </div>

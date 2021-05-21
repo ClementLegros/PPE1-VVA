@@ -47,6 +47,11 @@ function indexWithAdminLogin()
             </ul>
             <ul class='navbar-nav'>
                 <li class='nav-item active'>
+                    <a class='nav-link' href='index.php?page=desinscrire'>Se désinscrire<span class='sr-only'>(current)</span></a>
+                </li>
+            </ul>
+            <ul class='navbar-nav'>
+                <li class='nav-item active'>
                     <a class='nav-link' href='index.php?page=indexAjout'>Ajouter<span class='sr-only'>(current)</span></a>
                 </li>
             </ul>
@@ -61,6 +66,12 @@ function indexWithAdminLogin()
         ";
     if (isset($_GET['page'])) {
         switch ($_GET['page']) {
+            case "desinscrire":
+                include 'desinscrireFormulaire.htm';
+                break;
+            case "desinscription":
+                include 'desinscription.php';
+                break;
             case 'modifierActivite':
                 include 'modifierActivite.php';
                 break;
@@ -76,7 +87,7 @@ function indexWithAdminLogin()
             case 'supprimerAnimation':
                 include 'traitement/trt_supprimerAnimation.php';
                 break;
-            case "desinscription":
+            case "desinscriptiontrt":
                 include 'traitement/trt_desinscription.php';
             case 'activite':
                 include 'activite.php';
@@ -116,7 +127,7 @@ function indexWithVacancierLogin()
             </ul>
             <ul class='navbar-nav'>
                 <li class='nav-item active'>
-                    <a class='nav-link' href='index.php?page=InscriptionActChoixAnim'>Inscription activité<span class='sr-only'>(current)</span></a>
+                    <a class='nav-link' href='index.php?page=desinscrire'>Se désinscrire<span class='sr-only'>(current)</span></a>
                 </li>
             </ul>
             <ul class='navbar-nav'>
@@ -130,6 +141,14 @@ function indexWithVacancierLogin()
 
     if (isset($_GET['page'])) {
         switch ($_GET['page']) {
+            case "actParMois":
+                include 'activiteParMois.php';
+            case "desinscrire":
+                include 'desinscrireFormulaire.htm';
+                break;
+            case "desinscription":
+                include 'desinscription.php';
+                break;
             case "consultAnimActi":
                 include 'animation.php';
                 break;

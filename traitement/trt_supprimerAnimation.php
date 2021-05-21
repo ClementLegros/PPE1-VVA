@@ -26,9 +26,9 @@ include '../fonction.php';
         $reponse = $bdd->query("DELETE FROM ANIMATION WHERE CODEANIM = '$cdAnim'");
         $donnees = $reponse->fetch();
         $reponse->closeCursor();
-        header('location:index.php?page=consulterAnim&reussite=True');
+        header('location:index.php?page=animation&reussite=True');
     } else {
-        header('location:index.php?page=consulterAnim&reussite=False');
+        header('location:index.php?page=animation&reussite=False');
     }
     ?>
 ?>

@@ -26,9 +26,12 @@
         }
         else
         {
-            indexWithoutAnyLogin();
+
+            indexWithoutAnyLogin();            
         }
     ?>
+    
+
 
 </body>
 </html>

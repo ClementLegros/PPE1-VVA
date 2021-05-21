@@ -1,14 +1,21 @@
 <?php
 ini_set('display_errors', 'on');
 
+
 var_dump($_GET);
 //récupération des variables
 $noAct = $_GET['noAct'];
 $user = $_SESSION['User'];
 
+//On réinitialise la session au cas ou
+$_SESSION['noInscrit'] = "";
 //Connection à la base de données
 $bdd = bddConnect();
 mysqli_set_charset($bdd, "utf8");
+
+
+
+
 $req = "DELETE FROM INSCRIPTION WHERE USER = '$user' AND NOACT = '$noAct'";
 if($res = mysqli_query($bdd, $req))
 {

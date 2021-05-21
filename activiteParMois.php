@@ -1,13 +1,54 @@
 <?php
 $user = $_SESSION['User']; // On récupère l'utilisateur
 $cdAnim = $_GET['cdAnim'];
+$mois = $_POST['moisEntrer'];
+
+$noMois = 0;
+
+switch($mois)
+{
+    case "janvier":
+        $noMois = 1;
+        break;
+    case "février":
+        $noMois = 2;
+        break;
+    case "mars";
+        $noMois = 3;
+        break;
+    case "avril":
+        $noMois = 4;
+        break;
+    case "mai":
+        $noMois = 5;
+        break;
+    case "juin";
+        $noMois = 6;
+        break;
+    case "juillet":
+        $noMois = 7;
+        break;
+    case "aout":
+        $noMois = 8;
+        break;
+    case "septembre":
+        $noMois = 9;
+        break;
+    case "octobre":
+        $noMois = 10;
+        break;
+    case "novembre":
+        $noMois = 11;
+        break;
+    case "décembre":
+        $noMois = 12;
+        break;
+}
 
 ini_set('display_errors', 'on');
 $bdd = bddConnect();
     mysqli_set_charset($bdd, "utf8");
 if ($_SESSION['TypeUser'] == "AD") {
-
-
     //Calcul du taux globale
 
 
@@ -64,7 +105,7 @@ if ($_SESSION['TypeUser'] == "AD") {
 
     <?php
 
-    $req = "SELECT *  FROM ACTIVITE ACT, ETAT_ACT ETACT WHERE ACT.CODEETATACT= ETACT.CODEETATACT AND ACT.CODEANIM='$cdAnim' AND ETACT.NOMETATACT = 'Disponible'"; //On recupère les animations
+    $req = "SELECT *  FROM ACTIVITE ACT, ETAT_ACT ETACT WHERE ACT.CODEETATACT= ETACT.CODEETATACT AND ACT.CODEANIM='$cdAnim' AND ETACT.NOMETATACT = 'Disponible' AND MONTH(ACT.DATEACT) = '$noMois'";
     //$req = "SELECT * FROM ACTIVITE WHERE CODEANIM='$cdAnim' ";
     $res = mysqli_query($bdd, $req);
     while ($donnees = mysqli_fetch_assoc($res)) {
@@ -99,7 +140,6 @@ if ($_SESSION['TypeUser'] == "AD") {
                 $resdeux = mysqli_query($bdd, $reqdeux);
                 $donneesdeux = mysqli_fetch_assoc($resdeux);
 
-                
                 //On crée le taux de remplissage
                 $nbInscritSimpleSalarie = $donneesdeux['nbInscrit'];
                 $tauxRemplissage = $donneesdeux['nbInscrit'] / $nbrePlace;
